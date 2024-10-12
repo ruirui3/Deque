@@ -40,41 +40,63 @@ public class Deque<Item> implements Iterable<Item> {
 
     // add the item to the front
     public void addFirst(Item item) {
-
+        if (item.equals(null)) {
+            throw new IllegalArgumentException("No numbers");
+        }
         Node<Item> oldFirst = firstPointer;
         firstPointer = new Node<Item>();
         firstPointer.item = item;
-        firstPointer.previous = null;
+        firstPointer.next = oldFirst;
+        if (isEmpty()) {
+            lastPointer = firstPointer;
+        }
         dequeSize++;
-        firstPointer.next = 
-        oldFirst = firstPointer;
 
     }
 
     // add the item to the back
     public void addLast(Item item) {
-
+        if (item.equals(null)) {
+            throw new IllegalArgumentException("No numbers");
+        }
     //implement a if function to see if blah blah blah        
-
-        Node<Item> oldLast = lastPointer;
-        lastPointer = new Node<Item>();
-        lastPointer.item = item;
-        lastPointer.next = null;
-        dequeSize++;
-        oldLast = lastPointer;
+    Node<Item> oldLast = lastPointer;
+    lastPointer = new Node<Item>();
+    lastPointer.item = item;
+    lastPointer.previous = oldLast;
+    if (isEmpty()) {
+        firstPointer = lastPointer;
+    }
+    dequeSize++;
+        
     }
 
     // remove and return the item from the front
     public Item removeFirst() {
-
+        if (size()<1) {
+            throw new NoSuchElementException("Queue underflow");
+        }
+        Node<Item> first = firstPointer;
+        firstPointer = firstPointer.next;
+        if (isEmpty()) {
+            lastPointer = null;
+        }
+        dequeSize--;
+        return first.item;
     }
 
     // remove and return the item from the back
     public Item removeLast() {
-
-        Node<Item> oldLast = lastPointer;
-        lastPointer.item = lastPointer.previous;
-
+        if (size()<1) {
+            throw new NoSuchElementException("Queue underflow");
+        }
+        Node<Item> last = lastPointer;
+        lastPointer = lastPointer.previous;
+        if (isEmpty()) {
+            firstPointer = null;
+        }
+        dequeSize--;
+        return last.item;
     }
 
     // return an iterator over items in order from front to back
