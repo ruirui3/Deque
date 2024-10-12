@@ -10,7 +10,7 @@ public class Deque<Item> implements Iterable<Item> {
     private Node<Item> lastPointer;
     private int dequeSize;
 
-    public static class Node<Item> {
+    private static class Node<Item> {
         private Item item;
         private Node<Item> next;
         private Node<Item> previous;
