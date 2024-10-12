@@ -1,6 +1,12 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ * @author Rui Zhao attests that this code is their original work and was written in compliance with the class Academic Integrity and Collaboration Policy found in the syllabus. 
+ */
+
+ //One thing that was interesting within deque was checking the fronts and back if the size, it took quite a bit for me to realize that was a neccesary step when the array is size 0 or 1. 
+ //I believe without the inspiration from Queue.java, I wouldn't have thought to use Node static class, and im sure it would be a lot harder without it. 
 
 public class Deque<Item> implements Iterable<Item> {
 

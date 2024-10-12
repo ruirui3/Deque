@@ -3,6 +3,14 @@ import java.util.NoSuchElementException;
 
 import edu.princeton.cs.algs4.StdRandom;
 
+/**
+ * @author Rui Zhao attests that this code is their original work and was written in compliance with the class Academic Integrity and Collaboration Policy found in the syllabus. 
+ */
+
+ //I think the hardest part about this class was the implementation of the iterator. I was confused on the conditions of the iterator, but after looking back at my apcsa notes I was able to debunk some of the uncertainties regarding swap and bounds. 
+ //Also I think it was interesting that I thought casting was the primary error upon submission, even though I have watched the video. I was very close to scrapping this entirely and tried to come up with an approach similar to Deque.java using linkedlist instead
+ //of [] because appearantly the video said java hates us and it is what it is. 
+
 public class RandomizedQueue<Item> implements Iterable<Item> {
 
     
