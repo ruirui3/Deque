@@ -80,33 +80,40 @@ public class Deque<Item> implements Iterable<Item> {
 
     // remove and return the item from the front
     public Item removeFirst() {
-        if (size()==0) {
+        if (isEmpty()) {
             throw new NoSuchElementException("Queue underflow");
         }
-        Node<Item> first = firstPointer;
-        firstPointer = firstPointer.next;
-        dequeSize--;
-        if (size()==0) {
+        Node<Item> oldFirst = firstPointer;
+        Item item = oldFirst.item;
+    
+        if (firstPointer.next != null) {
+            firstPointer = firstPointer.next;
+            firstPointer.previous = null; 
+        } else {
+            firstPointer = null;
             lastPointer = null;
         }
-        
-        return first.item;
+        dequeSize--;
+        return item;
     }
 
     // remove and return the item from the back
     public Item removeLast() {
-        if (size()==0) {
+        if (isEmpty()) {
             throw new NoSuchElementException("Queue underflow");
         }
-        dequeSize--;
-        Node<Item> last = lastPointer;
-        
-        lastPointer = lastPointer.previous;
-        if (size()==0) {
+        Node<Item> oldLast = lastPointer;
+        Item item = oldLast.item;
+        //if previous node exist, branch back to that one, else pointer meet
+        if (lastPointer.previous != null) {
+            lastPointer = lastPointer.previous;
+            lastPointer.next = null; 
+        } else {   
             firstPointer = null;
+            lastPointer = null;
         }
-        
-        return last.item;
+        dequeSize--;
+        return item;
     }
 
     // return an iterator over items in order from front to back
@@ -162,7 +169,8 @@ public class Deque<Item> implements Iterable<Item> {
         deque2.addLast(3);
         deque2.addFirst(4);
         deque2.removeFirst();
-        deque2.removeLast();
+        System.out.println(deque2.removeLast());
+        
         
         
         
