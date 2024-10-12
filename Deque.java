@@ -29,7 +29,7 @@ public class Deque<Item> implements Iterable<Item> {
     // is the deque empty?
     public boolean isEmpty() {
         
-        return firstPointer.equals(lastPointer);
+        return dequeSize == 0;
 
     }
 
@@ -49,6 +49,9 @@ public class Deque<Item> implements Iterable<Item> {
         firstPointer.next = oldFirst;
         if (isEmpty()) {
             lastPointer = firstPointer;
+            
+        } else {
+            oldFirst.previous = firstPointer;
         }
         dequeSize++;
 
@@ -63,9 +66,13 @@ public class Deque<Item> implements Iterable<Item> {
     Node<Item> oldLast = lastPointer;
     lastPointer = new Node<Item>();
     lastPointer.item = item;
+    
     lastPointer.previous = oldLast;
     if (isEmpty()) {
         firstPointer = lastPointer;
+        
+    } else {
+        oldLast.next = lastPointer;
     }
     dequeSize++;
         
@@ -73,40 +80,101 @@ public class Deque<Item> implements Iterable<Item> {
 
     // remove and return the item from the front
     public Item removeFirst() {
-        if (size()<1) {
+        if (size()==0) {
             throw new NoSuchElementException("Queue underflow");
         }
         Node<Item> first = firstPointer;
         firstPointer = firstPointer.next;
-        if (isEmpty()) {
+        dequeSize--;
+        if (size()==0) {
             lastPointer = null;
         }
-        dequeSize--;
+        
         return first.item;
     }
 
     // remove and return the item from the back
     public Item removeLast() {
-        if (size()<1) {
+        if (size()==0) {
             throw new NoSuchElementException("Queue underflow");
         }
+        dequeSize--;
         Node<Item> last = lastPointer;
+        
         lastPointer = lastPointer.previous;
-        if (isEmpty()) {
+        if (size()==0) {
             firstPointer = null;
         }
-        dequeSize--;
+        
         return last.item;
     }
 
     // return an iterator over items in order from front to back
     public Iterator<Item> iterator() {
-        return 
+        
+        return new IteratorDeque();
+
     }
+    /**
+     * constructs/implements the iterator abstract class
+     */
+    private class IteratorDeque implements Iterator<Item> {
+        private Node<Item> progress = firstPointer;
+
+        public boolean hasNext() {
+            return progress != null;
+        }
+
+        public Item next() {
+            if (progress == null) {
+                throw new java.util.NoSuchElementException("No more elements remaining");
+
+            }
+            Item item = progress.item;
+            progress = progress.next;
+            return item;
+
+        }
+
+
+
+
+    }
+
 
     // unit testing (required)
     public static void main(String[] args) {
+        Deque<String> deque = new Deque<String>();
+        deque.addLast("Heheheha1");
+        deque.addFirst("ha");
+        deque.addLast("as");
+        
+        System.out.println("Deque size after operation, should be 3 -> " + deque.size());
+        System.out.println("printing string, expect ha Heheheha1 as");
+        for (String i : deque) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+        Deque<Integer> deque2 = new Deque<Integer>();
+        deque2.addLast(5);
+        deque2.addFirst(1);
+        deque2.addFirst(2);
+        deque2.addLast(3);
+        deque2.addFirst(4);
+        deque2.removeFirst();
+        deque2.removeLast();
+        
+        
+        
+        System.out.println("expected size: , --> " + deque2.size());
+        System.out.println("printing integers, ");
+        for (Integer i : deque2) {
+            System.out.print(i + " ");
+        }
+    
 
     }
+
+    
     
 }
