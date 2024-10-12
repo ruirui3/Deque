@@ -48,9 +48,13 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (size==randomQueue.length) {
             resize(size*2);
         }
-        size++;
-        randomQueue[size] = item;
+        
+        randomQueue[size++] = item;
 
+        /*randomQueue[size++] = item;
+        if (size == randomQueue.length) {
+            resize(randomQueue.length * 2);
+        }*/
         
     }
 
@@ -133,7 +137,58 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     // unit testing (required)
     public static void main(String[] args) {
+        RandomizedQueue<Integer> rndQueue = new RandomizedQueue<Integer>();
 
+        System.out.format("Size    :        %s%n", rndQueue.size());
+        System.out.format("Is empty:        %s%n%n", rndQueue.isEmpty());
+
+        System.out.println("Adding 10 elements, using enqueue");
+        for (int i = 0; i < 10; ++i)
+            rndQueue.enqueue(i);
+
+        System.out.format("Size    :        %s%n", rndQueue.size());
+        System.out.format("Is empty:        %s%n%n", rndQueue.isEmpty());
+
+        System.out.println(
+                "Printing RandomizeQueue with iterator, 10 numbers should appear in random");
+        RandomizedQueue.printIterator(rndQueue);
+
+        System.out.println(
+                "Printing RandomizedQueue with dequeue, 10 numbers should appear in random order");
+        while (!rndQueue.isEmpty())
+            System.out.format("%s ", rndQueue.dequeue());
+
+        System.out.format("%nSize    :        %s%n", rndQueue.size());
+        System.out.format("Is empty:        %s%n%n", rndQueue.isEmpty());
+
+        System.out.println("Adding 1 element, using enqueue");
+        rndQueue.enqueue(1);
+        System.out.println("Getting element, through sample");
+        System.out.format("%s %n", rndQueue.sample());
+        System.out.format("%nSize    :        %s%n", rndQueue.size());
+        System.out.format("Is empty:        %s%n%n", rndQueue.isEmpty());
+        System.out.println("Getting element, through dequeue");
+        System.out.format("%s %n", rndQueue.dequeue());
+        System.out.format("%nSize    :        %s%n", rndQueue.size());
+        System.out.format("Is empty:        %s%n%n", rndQueue.isEmpty());
+
+        System.out.println("Adding 10 elements, using enqueue");
+        for (int i = 0; i < 10; ++i)
+            rndQueue.enqueue(i);
+
+        System.out.println(
+                "Printing RandomizedQueue with sample, 10 numbers should appear in random order");
+        for (int i = 0; i < 10; ++i)
+            System.out.format("%s ", rndQueue.sample());
+
+        System.out.format("%nSize    :        %s%n", rndQueue.size());
+        System.out.format("Is empty:        %s%n%n", rndQueue.isEmpty());
+    }
+
+    private static void printIterator(RandomizedQueue<Integer> q) {
+        for (Integer i : q)
+            System.out.format("%s ", i);
+        System.out.format("%n%n");
     }
 
 }
