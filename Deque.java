@@ -1,7 +1,5 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.lang.*;
-import java.util.LinkedList;
 
 
 public class Deque<Item> implements Iterable<Item> {
@@ -40,7 +38,7 @@ public class Deque<Item> implements Iterable<Item> {
 
     // add the item to the front
     public void addFirst(Item item) {
-        if (item.equals(null)) {
+        if (item == null) {
             throw new IllegalArgumentException("No numbers");
         }
         Node<Item> oldFirst = firstPointer;
@@ -59,7 +57,7 @@ public class Deque<Item> implements Iterable<Item> {
 
     // add the item to the back
     public void addLast(Item item) {
-        if (item.equals(null)) {
+        if (item == null) {
             throw new IllegalArgumentException("No numbers");
         }
     //implement a if function to see if blah blah blah        
